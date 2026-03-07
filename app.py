@@ -9,15 +9,18 @@ import json
 app = Flask(__name__)
 app.secret_key = "stocker_secret_2024"
 
+import os
+
 # ================= AWS CONFIGURATION (IAM ROLE) =================
 
-AWS_REGION = "us-east-1"
+AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
+DYNAMODB_ENDPOINT = os.environ.get("DYNAMODB_ENDPOINT")
 
-# Use IAM Role attached to EC2
+# Use IAM Role attached to EC2 or environment variables
 session_aws = boto3.Session(region_name=AWS_REGION)
 
 # DynamoDB
-dynamodb = session_aws.resource('dynamodb')
+dynamodb = session_aws.resource('dynamodb', endpoint_url=DYNAMODB_ENDPOINT)
 
 # SNS
 sns = session_aws.client('sns')
