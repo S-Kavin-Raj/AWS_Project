@@ -22,11 +22,9 @@ else:
     # EC2 instance with IAM role
     session = boto3.Session(region_name=AWS_REGION)
 
-DYNAMODB_ENDPOINT = os.environ.get("DYNAMODB_ENDPOINT")
-
 # Create DynamoDB resource and client
-dynamodb = session.resource('dynamodb', endpoint_url=DYNAMODB_ENDPOINT)
-dynamodb_client = session.client('dynamodb', endpoint_url=DYNAMODB_ENDPOINT)
+dynamodb = session.resource('dynamodb')
+dynamodb_client = session.client('dynamodb')
 
 # Define table names
 USER_TABLE = 'stocker_users'

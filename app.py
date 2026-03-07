@@ -9,18 +9,15 @@ import json
 app = Flask(__name__)
 app.secret_key = "stocker_secret_2024"
 
-import os
-
 # ================= AWS CONFIGURATION (IAM ROLE) =================
 
-AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
-DYNAMODB_ENDPOINT = os.environ.get("DYNAMODB_ENDPOINT")
+AWS_REGION = "us-east-1"
 
-# Use IAM Role attached to EC2 or environment variables
+# Use IAM Role attached to EC2
 session_aws = boto3.Session(region_name=AWS_REGION)
 
 # DynamoDB
-dynamodb = session_aws.resource('dynamodb', endpoint_url=DYNAMODB_ENDPOINT)
+dynamodb = session_aws.resource('dynamodb')
 
 # SNS
 sns = session_aws.client('sns')
@@ -32,8 +29,8 @@ TRANSACTION_TABLE = "stocker_transactions"
 PORTFOLIO_TABLE = "stocker_portfolio"
 
 # SNS Topics
-USER_ACCOUNT_TOPIC_ARN = "arn:aws:sns:us-east-1:604665149129:StockerUserAccountTopic"
-TRANSACTION_TOPIC_ARN = "arn:aws:sns:us-east-1:604665149129:StockerTransactionTopic"
+USER_ACCOUNT_TOPIC_ARN = "arn:aws:sns:us-east-1:664418958020:USER_ACCOUNT_TOPIC_ARN"
+TRANSACTION_TOPIC_ARN = "arn:aws:sns:us-east-1:664418958020:TRANSACTION_TOPIC_ARN"
 
 
 # ================= HELPER CLASSES =================
